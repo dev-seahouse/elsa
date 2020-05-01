@@ -1,0 +1,78 @@
+// variables
+$shade: #f4eeff;
+$shade-inverse: #424874;
+$accent: #a6b1e1;
+
+// breakpoints
+$breakpoint-small: 600px;
+$breakpoint-med-small: 960px;
+$breakpoint-med: 1175px;
+
+
+
+// functions
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
+
+
+// paddings and margins
+//Padding mixin
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+//Margin mixin
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+// media query
+@mixin screen($size, $type: min, $pixels: $breakpoint-small) {
+  @if $size == 'small' {
+    @media screen and ($type + -width: $breakpoint-small) {
+      @content;
+    }
+  }
+  @else if $size == 'med-small' {
+    @media screen and ($type + -width: $breakpoint-med-small) {
+      @content;
+    }
+  }
+  @else if $size == 'med' {
+    @media screen and ($type + -width: $breakpoint-med) {
+      @content;
+    }
+  }
+  @else if $size == 'large' {
+    @media screen and ($type + -width: $breakpoint-med) {
+      @content;
+    }
+  }
+  @else if $size == 'custom' {
+    @media screen and ($type + -width: $pixels + px) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+// utils
+
+.is-circle {
+  border-radius: 50%;
+}
+
+.is-m-0auto-on-small {
+  @include screen(small) {
+    margin: 0 auto;
+  }
+}
+

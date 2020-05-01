@@ -1,0 +1,8 @@
+@import '../../_includes.scss';
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  min-width: 300px;
+}

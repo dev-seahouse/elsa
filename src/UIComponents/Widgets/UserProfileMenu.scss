@@ -1,0 +1,19 @@
+@import '../../includes';
+
+.user-profile-menu {
+  display: inline-block;
+  vertical-align: middle;
+  width: rem(58px);
+
+  @include screen(small) {
+    width: rem(63px);
+  }
+}
+
+.user-profile-img {
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
+
