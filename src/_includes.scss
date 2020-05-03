@@ -8,13 +8,10 @@ $breakpoint-small: 600px;
 $breakpoint-med-small: 960px;
 $breakpoint-med: 1175px;
 
-
-
 // functions
 @function rem($size) {
   @return $size / 16px * 1rem;
 }
-
 
 // paddings and margins
 //Padding mixin
@@ -38,28 +35,23 @@ $breakpoint-med: 1175px;
     @media screen and ($type + -width: $breakpoint-small) {
       @content;
     }
-  }
-  @else if $size == 'med-small' {
+  } @else if $size == 'med-small' {
     @media screen and ($type + -width: $breakpoint-med-small) {
       @content;
     }
-  }
-  @else if $size == 'med' {
+  } @else if $size == 'med' {
     @media screen and ($type + -width: $breakpoint-med) {
       @content;
     }
-  }
-  @else if $size == 'large' {
+  } @else if $size == 'large' {
     @media screen and ($type + -width: $breakpoint-med) {
       @content;
     }
-  }
-  @else if $size == 'custom' {
+  } @else if $size == 'custom' {
     @media screen and ($type + -width: $pixels + px) {
       @content;
     }
-  }
-  @else {
+  } @else {
     @content;
   }
 }
@@ -76,3 +68,10 @@ $breakpoint-med: 1175px;
   }
 }
 
+.has-full-width {
+  width: 100%;
+}
+
+.has-text-center {
+  text-align: center;
+}

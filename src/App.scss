@@ -1,18 +1,16 @@
 @import './_includes.scss';
 // todo: extract modules rules and theme rules
+
+// layout rules
 .container {
   margin: 0 auto;
-  padding:rem(38px) rem(40px);
+  padding: rem(38px) rem(40px);
   min-width: 350px;
   max-width: 938px;
   @include screen(small) {
     padding: rem(60px) rem(50px);
   }
 }
-
-
-// layout rules
-
 // module rules
 
 // theme rules
@@ -23,7 +21,6 @@
 .has-theme-shade-fg {
   color: $shade;
 }
-
 
 .has-theme-accent-fg {
   color: $accent;
@@ -36,5 +33,3 @@
 .has-theme-shade-inv-fg {
   color: $shade-inverse;
 }
-
-

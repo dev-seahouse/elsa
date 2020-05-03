@@ -31,8 +31,8 @@ const getMonthStr = (month) => {
   return monthNames[month];
 };
 export const getDateString = (dateObj) =>
-    `${dateObj.getDate()} ${getMonthStr(dateObj.getMonth())} ${getWeekStr(
-        dateObj.getDay()
-    )}`;
+  `${pad(dateObj.getDate())} ${getMonthStr(dateObj.getMonth())} ${getWeekStr(
+    dateObj.getDay()
+  )}`;
 export const getTimeString = (dateObj) =>
-    `${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}:${dateObj.getSeconds()}`;
+  `${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}`;

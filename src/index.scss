@@ -1,3 +1,4 @@
+@import './includes.scss';
 // base rules
 body,
 html {
@@ -12,7 +13,129 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+input {
+  margin: 0;
+  padding: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+// textbox
+.input-group {
+  position: relative;
+  &:not(:last-child) {
+    margin-right: rem(32px);
+  }
+}
+
+input {
+  color: $accent;
+  background-color: transparent;
+}
+
+input[type='radio'] {
+  margin-right: rem(7px);
+}
+
+input[type='checkbox'] {
+  margin-right: rem(8px);
+}
+
+label {
+  color: $accent;
+  font-weight: normal;
+  transition: 0.2s ease all;
+  cursor: pointer;
+}
+
+.input-text-label {
+  position: absolute;
+  left: 0;
+  top: -0.8px;
+}
+
+input[type='text'] {
+  border: none;
+  border-bottom: 1px solid $accent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus ~,
+  &:valid ~ {
+    .input-text-label,
+    .input-text-icon {
+      font-size: 14px;
+      color: darken($accent, 15%);
+    }
+    .input-text-label {
+      top: rem(-14px);
+    }
+    .input-text-icon {
+      top: rem(-12px);
+    }
+  }
+}
+
+.input-text-icon {
+  position: absolute;
+  font-size: 1.1rem;
+  right: 0;
+  bottom: rem(4px);
+  color: $accent;
+}
+
+.input-text-bar {
+  position: relative;
+  display: block;
+}
+.input-text-bar:before,
+.input-text-bar:after {
+  content: '';
+  height: 1px;
+  bottom: 0;
+  width: 0;
+  position: absolute;
+  background: $shade-inverse;
+  transition: 0.2s ease all;
+}
+
+.input-text-bar:before {
+  left: 50%;
+}
+.input-text-bar:after {
+  right: 50%;
+}
+
+input:focus ~ .input-text-bar:before,
+input:focus ~ .input-text-bar:after {
+  width: 50%;
+}
+
+.input-text-highlight {
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+input:focus ~ .input-text-highlight {
+  animation: inputHighlighter 0.3s ease;
+}
+
+@keyframes inputHighlighter {
+  from {
+    background: $shade-inverse;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
 }

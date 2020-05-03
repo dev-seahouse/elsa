@@ -1,4 +1,4 @@
-@import '../../includes';
+@import '../../includes.scss';
 
 .clock {
   display: inline-block;
@@ -7,10 +7,9 @@
 .clock-date {
   line-height: 1.2;
   font-size: 1rem;
-  letter-spacing: rem(1px);
-  text-align: center;
   @include screen(small) {
-    font-size:rem(26px);
+    letter-spacing: rem(1px);
+    font-size: rem(26px);
     display: inline-block;
     vertical-align: middle;
   }
@@ -19,12 +18,10 @@
 .clock-time {
   line-height: 1.2;
   font-size: rem(40px);
-  text-align: center;
   @include screen(small) {
     font-size: rem(60px);
     display: inline-block;
     vertical-align: middle;
-    margin-right:rem(15px);
+    margin-right: rem(15px);
   }
-
 }

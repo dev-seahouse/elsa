@@ -1,13 +1,20 @@
-import React from 'react'
+import React from 'react';
+import './SearchBar.scss';
 
-const SearchBar = (props)=> {
+const SearchBar = (props) => {
+  return (
+    <div className="search-bar">
+      <div className="input-group">
+        <input type="text" required className="has-full-width" />
+        <span className="input-text-highlight"></span>
+        <span className="input-text-bar"></span>
+        <label className="input-text-label">Search</label>
+        <span className="input-text-icon search-bar-search-icon">
+          <i className="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+  );
+};
 
-  return <div className="search-bar">
-    <input type="text" placeholder="Search"/>
-    <span className="search-bar-search-icon">
-
-    </span>
-  </div>
-}
-
-export default SearchBar
+export default SearchBar;

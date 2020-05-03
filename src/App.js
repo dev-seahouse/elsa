@@ -8,7 +8,7 @@ import {
 import './App.scss';
 
 import Header from './UIComponents/Header/Header';
-import SearchBar from "./UIComponents/Widgets/SearchBar";
+import TodoList from './Todo/TodoList';
 
 const App = () => {
   return (
@@ -16,15 +16,14 @@ const App = () => {
       <div className="container">
         <Header />
         <main>
-          <SearchBar/>
           <Switch>
-            <Route path="/" exact></Route>
+            <Route path="/" exact>
+              <TodoList></TodoList>
+            </Route>
             <Redirect to="/" />
           </Switch>
         </main>
-
       </div>
-
     </Router>
   );
 };

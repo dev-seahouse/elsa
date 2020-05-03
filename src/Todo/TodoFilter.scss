@@ -1,0 +1,30 @@
+@import '../includes';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
+
+.todo-filter {
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin: rem(40.5px) 0 rem(26px);
+}
+
+.pretty.p-default input:checked ~ .state label::after {
+  background-color: $accent !important;
+}
+
+.pretty .state label::before {
+  border-color: $shade-inverse;
+  border-width: 2px;
+}
+
+.pretty .state label::before,
+.pretty .state label::after {
+  width: 0.8rem;
+  height: 0.8rem;
+  top: calc((0% - (100% - 1.06em)));
+}
+
+.pretty .state label {
+  text-indent: 1.2rem;
+  margin-right: rem(15px);
+}

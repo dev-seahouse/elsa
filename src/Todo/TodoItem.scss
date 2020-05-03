@@ -1,0 +1,30 @@
+@import '../includes';
+.todo-item {
+  margin: 0 0 rem(13px) 0;
+  .pretty {
+    margin-right: 0;
+  }
+
+  .pretty .state label {
+    text-indent: 0;
+    margin-right: rem(12px);
+  }
+  .pretty .state label::before,
+  .pretty .state label::after {
+    padding: rem(5px);
+    width: 1rem;
+    height: 1rem;
+    top: 0;
+  }
+}
+
+.todo-item-text {
+  z-index: 2;
+  color: $shade-inverse;
+  cursor: pointer;
+  &:hover {
+    font-style: italic;
+    font-weight: 500;
+    border-bottom: 1px solid $accent;
+  }
+}
