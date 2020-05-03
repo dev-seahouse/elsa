@@ -26,7 +26,7 @@ class PgRepository {
     return data.rows;
   }
 
-  static async save(tableName, data) {
+  static async insert(tableName, data) {
     // assume that pk is 'id' for simplicity
     const columns = Object.keys(data);
     const values = Object.values(data);

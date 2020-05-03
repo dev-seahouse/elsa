@@ -4,8 +4,8 @@ import SearchBar from '../UIComponents/Widgets/SearchBar';
 import TodoFilter from './TodoFilter';
 import TodoItems from './TodoItems';
 import AddTodoActionBar from './AddTodoActionBar';
-import todoMockData from './mockdata';
 import TodoEditor from './TodoEditor';
+import axios from 'axios';
 
 const editorReducer = (currState, action) => {
   switch (action.type) {
@@ -47,9 +47,14 @@ const TodoList = (props) => {
     });
   };
   useEffect(() => {
-    // set data
     console.info('setTodo effect fired');
-    setTodoData(todoMockData);
+    // set data
+    axios
+      .get('http://localhost:5000/todos')
+      .then((res) => {
+        setTodoData(res.data);
+      })
+      .catch(console.error);
   }, []);
 
   const addTodoBtnClickedHandler = (e) => {
@@ -68,20 +73,22 @@ const TodoList = (props) => {
 
   const handleSave = (content) => {
     const newTodo = {
-      id: Math.random() * 100,
       content: content,
       is_completed: false,
       date_added: new Date(),
       date_updated: new Date(),
-      user_id: 2,
+      app_user_id: 1,
       is_deleted: false,
     };
-    // make http request and get the returned inserted id
 
-    setTodoData((prevState) => {
-      const newData = [...prevState, newTodo];
-      return newData;
+    axios.post('http://localhost:5000/todos', newTodo).then((res) => {
+      newTodo.id = res.data.id;
+      setTodoData((prevState) => {
+        const newData = [...prevState, newTodo];
+        return newData;
+      });
     });
+    // make http request and get the returned inserted id
   };
 
   const handleSaveBtnClicked = (e) => {
