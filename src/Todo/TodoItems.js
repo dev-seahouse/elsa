@@ -8,7 +8,16 @@ const TodoItems = (props) => {
     return <div className="has-text-center">~Inbox Zero State~</div>;
   }
 
-  const todoItems = props.todoData.map((todo) => (
+  const sortByIsCompleted = (todoData, order = 'asc') =>
+    todoData.sort((a, b) =>
+      order === 'asc'
+        ? a.is_completed - b.is_completed
+        : b.is_completed - a.is_completed
+    );
+
+  const sortedTodo = sortByIsCompleted([...props.todoData]);
+
+  const todoItems = sortedTodo.map((todo) => (
     <TodoItem
       key={todo.id}
       id={todo.id}

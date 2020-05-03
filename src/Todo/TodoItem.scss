@@ -30,3 +30,7 @@
     border-bottom: 1px solid $accent;
   }
 }
+
+.todo-item-is-completed {
+  text-decoration: line-through;
+}

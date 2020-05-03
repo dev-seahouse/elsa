@@ -8,9 +8,6 @@ import todoMockData from './mockdata';
 import TodoEditor from './TodoEditor';
 
 const TodoList = (props) => {
-  const sortByIsCompleted = (todoData) =>
-    todoData.sort((a, b) => a.is_completed - b.is_completed);
-
   const [todoData, setTodoData] = useState([]);
 
   const toggleIsCompleted = (todo) => !todo.is_completed;
@@ -22,22 +19,25 @@ const TodoList = (props) => {
       const newTodoObj = { ...newData[clickedTodoIndex] };
       newTodoObj.is_completed = toggleIsCompleted(newTodoObj);
       newData[clickedTodoIndex] = newTodoObj;
-      return sortByIsCompleted(newData);
+      return newData;
     });
   };
 
   useEffect(() => {
     // set data
     console.log('only run once');
-    const sortedData = sortByIsCompleted(todoMockData);
-    setTodoData(sortedData);
+    setTodoData(todoMockData);
   }, []);
 
   return (
     <div className="todo-list">
       <SearchBar />
       <TodoFilter />
-      <TodoItems todoData={todoData} onClick={todoChkBoxClickedHandler} />
+      <TodoItems
+        todoData={todoData}
+        onClick={todoChkBoxClickedHandler}
+        sortBy={{ completed: 'asc' }}
+      />
       <AddTodoActionBar />
       <TodoEditor />
     </div>

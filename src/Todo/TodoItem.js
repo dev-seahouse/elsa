@@ -17,7 +17,13 @@ const TodoItem = (props) => {
           <label />
         </div>
       </div>
-      <span className="todo-item-text">{extractTitle(props.content)}</span>
+      <span
+        className={`todo-item-text ${
+          props.isCompleted && 'todo-item-is-completed'
+        } `}
+      >
+        {extractTitle(props.content)}
+      </span>
     </div>
   );
 };
