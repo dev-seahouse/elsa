@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const methodOverride = require('method-override');
-const { handle404, handle500 } = require('./controllers/errors');
+const { handle404, handle500 } = require('./shared/ErrorHandlers');
+const TodoRoutes = require('./todo/todo.routes');
 
 const app = express();
 
@@ -20,6 +21,8 @@ app.use(
 app.get(APP_ROOT, (req, res) => {
   res.json('~elsa api~');
 });
+
+app.use(APP_ROOT, TodoRoutes);
 
 // !no routes below
 app.use(handle404);
