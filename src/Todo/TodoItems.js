@@ -8,14 +8,18 @@ const TodoItems = (props) => {
     return <div className="has-text-center">~Inbox Zero State~</div>;
   }
 
-  const sortByIsCompleted = (todoData, order = 'asc') =>
-    todoData.sort((a, b) =>
-      order === 'asc'
-        ? a.is_completed - b.is_completed
-        : b.is_completed - a.is_completed
-    );
+  const sortTodoData = (sortedArr) => {
+    return sortedArr.sort((a, b) => {
+      if (a.is_completed === b.is_completed) {
+        const aDate = new Date(a.date_updated);
+        const bDate = new Date(b.date_updated);
+        return bDate - aDate;
+      }
+      return a.is_completed > b.is_completed;
+    });
+  };
 
-  const sortedTodo = sortByIsCompleted([...props.todoData]);
+  const sortedTodo = sortTodoData([...props.todoData]);
 
   const todoItems = sortedTodo.map((todo) => (
     <TodoItem

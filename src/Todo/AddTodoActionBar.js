@@ -4,7 +4,11 @@ import './AddTodoActionBar.scss';
 const AddTodo = (props) => {
   return (
     <div className="action-bar">
-      <button className="button addTodoBtn" type="button">
+      <button
+        className="button addTodoBtn"
+        type="button"
+        onClick={props.onClick}
+      >
         <span>
           <i className="fas fa-plus"></i>
         </span>
