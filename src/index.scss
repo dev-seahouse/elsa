@@ -22,6 +22,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+// buttons
+
+button,
+.button {
+  position: relative;
+  background-color: $accent;
+  overflow: hidden;
+  border-width: 0;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  transition: all, 0.2s;
+  outline: none;
+  padding: 3px 8px 0 8px;
+  &:active {
+    padding: 3px 8px 0 8px;
+  }
+  &:hover,
+  &:focus {
+    background-color: darken($accent, 8%);
+    box-shadow: 0 1px 1px rgba(100, 100, 100, 0.5);
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 0;
+    padding-top: 0;
+    border-radius: 100%;
+    background-color: rgba(236, 240, 241, 0.3);
+    transform: translate(-50%, -50%);
+  }
+  &:active:before,
+  &:active:after {
+    width: 120%;
+    padding-top: 120%;
+    transition: width 0.2s ease-out, padding-top 0.2s ease-out;
+  }
+  & > * {
+    position: relative;
+  }
+  span {
+    display: block;
+  }
+}
 
 // textbox
 .input-group {

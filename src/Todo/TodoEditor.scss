@@ -1,0 +1,31 @@
+@import '../includes';
+.todo-editor {
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+    font-size: 13px;
+    padding: 14px;
+    width: 98%;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    color: lighten($shade-inverse, 25%);
+    background-color: #{$accent}44;
+  }
+}
+
+.todo-editor-actions {
+  margin: 20px 0;
+  width: 98%;
+  display: flex;
+  justify-content: flex-end;
+  .action-btn {
+    padding: 2px 8px 2px;
+    i {
+      margin-right: 5px;
+    }
+  }
+  .action-btn:not(:last-child) {
+    margin-right: rem(13px);
+  }
+}

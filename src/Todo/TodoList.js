@@ -3,8 +3,9 @@ import './TodoList';
 import SearchBar from '../UIComponents/Widgets/SearchBar';
 import TodoFilter from './TodoFilter';
 import TodoItems from './TodoItems';
-
+import AddTodoActionBar from './AddTodoActionBar';
 import todoMockData from './mockdata';
+import TodoEditor from './TodoEditor';
 
 const TodoList = (props) => {
   const sortByIsCompleted = (todoData) =>
@@ -37,15 +38,8 @@ const TodoList = (props) => {
       <SearchBar />
       <TodoFilter />
       <TodoItems todoData={todoData} onClick={todoChkBoxClickedHandler} />
-      <div className="actions">
-        <button>+</button>
-      </div>
-      <div className="editor">
-        <div className="editor-content">
-          <textarea name="" id="" cols="30" rows="10"></textarea>
-        </div>
-        <div className="editor-actions"></div>
-      </div>
+      <AddTodoActionBar />
+      <TodoEditor />
     </div>
   );
 };

@@ -1,0 +1,23 @@
+@import '../_includes.scss';
+.action-bar {
+  margin-top: rem(17px);
+  margin-bottom: rem(16px);
+  position: relative;
+}
+
+.action-bar:before {
+  z-index: -1;
+  position: absolute;
+  bottom: 55%;
+  content: '';
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid lighten($accent, 5%);
+}
+
+.addTodoBtn {
+  left: 80%;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  font-weight: 900;
+}

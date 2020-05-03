@@ -1,6 +1,6 @@
 @import '../includes';
 .todo-item {
-  margin: 0 0 rem(13px) 0;
+  margin: 0 0 rem(14px) 0;
   .pretty {
     margin-right: 0;
   }
@@ -12,8 +12,8 @@
   .pretty .state label::before,
   .pretty .state label::after {
     padding: rem(5px);
-    width: 1rem;
-    height: 1rem;
+    width: 1.1rem;
+    height: 1.1rem;
     top: 0;
   }
 }
@@ -21,6 +21,8 @@
 .todo-item-text {
   z-index: 2;
   color: $shade-inverse;
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
   &:hover {
     font-style: italic;
