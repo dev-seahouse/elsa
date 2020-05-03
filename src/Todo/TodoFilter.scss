@@ -6,6 +6,16 @@
   justify-content: flex-start;
   cursor: pointer;
   margin: rem(40.5px) 0 rem(26px);
+  @include screen(small) {
+    justify-content: flex-end;
+    margin-right: 0;
+    .pretty {
+      margin-right: 0;
+    }
+  }
+  @include screen(med-small) {
+    margin-bottom: rem(30px);
+  }
 }
 
 .pretty.p-default input:checked ~ .state label::after {
@@ -27,4 +37,18 @@
 .pretty .state label {
   text-indent: 1.2rem;
   margin-right: rem(15px);
+  @include screen(small) {
+    margin-right: rem(30px);
+  }
+  @include screen(med-small) {
+    margin-right: rem(35px);
+    font-size: 18px;
+  }
+  @include screen(med) {
+    margin-right: rem(50px);
+  }
+}
+
+.pretty:last-child label {
+  margin-right: 0;
 }

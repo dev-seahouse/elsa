@@ -1,5 +1,12 @@
 @import '../includes';
 .todo-editor {
+  margin: rem(20px) auto;
+  @include screen(med-small) {
+    text-align: center;
+  }
+  @include screen(med) {
+    margin: rem(30px) auto;
+  }
   textarea {
     resize: vertical;
     min-height: 130px;
@@ -11,6 +18,12 @@
     border-radius: 6px;
     color: lighten($shade-inverse, 25%);
     background-color: #{$accent}44;
+    @include screen(med-small) {
+      width: 100%;
+    }
+    @include screen(med) {
+      min-height: 300px;
+    }
   }
 }
 

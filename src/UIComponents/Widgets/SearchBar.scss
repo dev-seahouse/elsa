@@ -3,5 +3,14 @@
 .search-bar {
   cursor: pointer;
   margin-top: rem(40px);
-  margin-bottom: rem(20px);
+
+  @include screen(small) {
+    font-size: 18px;
+  }
+
+  @include screen(med-small) {
+    margin-top: rem(50px);
+    margin-bottom: rem(55px);
+    font-size: 22px;
+  }
 }

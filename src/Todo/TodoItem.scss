@@ -20,7 +20,7 @@
 
 .todo-item-text {
   z-index: 2;
-  color: $shade-inverse;
+  color: lighten($shade-inverse, 15%);
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;

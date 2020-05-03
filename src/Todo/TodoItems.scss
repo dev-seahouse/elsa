@@ -3,4 +3,24 @@
 .todo-items {
   height: rem(260px);
   overflow-y: scroll;
+  @include screen(med-small) {
+    overflow: hidden;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .todo-item {
+      width: 45%;
+    }
+    .todo-item-text {
+      font-size: rem(14px);
+    }
+  }
+  @include screen(med) {
+    .todo-item {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 32%;
+    }
+  }
 }

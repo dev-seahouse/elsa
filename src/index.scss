@@ -114,6 +114,10 @@ input[type='text'] {
     outline: none;
   }
 
+  &:invalid {
+    box-shadow: none;
+  }
+
   &:focus ~,
   &:valid ~ {
     .input-text-label,
