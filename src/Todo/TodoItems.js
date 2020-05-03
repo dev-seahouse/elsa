@@ -9,25 +9,28 @@ const TodoItems = (props) => {
   }
 
   const sortTodoData = (sortedArr) => {
-    return sortedArr.sort((a, b) => {
+    const newArr = sortedArr.sort((a, b) => {
       if (a.is_completed === b.is_completed) {
         const aDate = new Date(a.date_updated);
         const bDate = new Date(b.date_updated);
         return bDate - aDate;
       }
-      return a.is_completed > b.is_completed;
+      return a.is_completed - b.is_completed;
     });
+    return newArr;
   };
 
   const sortedTodo = sortTodoData([...props.todoData]);
+  console.log(sortedTodo);
 
   const todoItems = sortedTodo.map((todo) => (
     <TodoItem
       key={todo.id}
       id={todo.id}
       content={todo.content}
-      userId={todo.user_id}
+      userId={todo.app_juser_idj}
       isCompleted={todo.is_completed}
+      dateUpdated={todo.date_updatedj}
       onClick={props.onClick}
     />
   ));
