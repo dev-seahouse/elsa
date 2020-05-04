@@ -1,30 +1,44 @@
 const TodoRepo = require('./todo.repo');
 
-const getTodos = async (req, res) => {
-  const statement = 'select * from todo';
-  const data = await TodoRepo.execute(statement);
-  res.json(data.rows);
-};
-
-const addNewTodo = async (req, res) => {
-  const content = req.body.content;
-  const is_completed = req.body.is_completed;
-  const date_added = req.body.date_added;
-  const date_updated = req.body.date_updated;
-  const app_user_id = req.body.app_user_id;
-
-  const execRes = await TodoRepo.insert({
+const getTodoReq = (req) => {
+  let {
     content,
     is_completed,
     date_added,
     date_updated,
     app_user_id,
-  });
+  } = req.body;
+  let returnedObj = {
+    content,
+    is_completed,
+    date_added,
+    date_updated,
+    app_user_id,
+  };
 
-  res.json(execRes.rows[0]);
+  return returnedObj;
+};
+
+const getTodos = async (req, res) => {
+  const statement = 'select * from todo';
+  const data = await TodoRepo.execute(statement);
+  return res.json(data.rows);
+};
+
+const addNewTodo = async (req, res) => {
+  const execRes = await TodoRepo.insert(getTodoReq(req));
+  return res.json(execRes.rows[0] || '');
+};
+
+const updateTodo = async (req, res) => {
+  const { id } = req.params;
+  // console.log(req.body);
+  const execRes = await TodoRepo.update(getTodoReq(req), id);
+  return res.json(execRes);
 };
 
 module.exports = {
   getTodos,
   addNewTodo,
+  updateTodo,
 };

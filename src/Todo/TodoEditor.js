@@ -13,10 +13,13 @@ const TodoEditor = (props) => {
   return (
     <div className="todo-editor">
       <div className="todo-editor-content">
-        <textarea onChange={props.onChange}></textarea>
+        <textarea
+          onChange={props.onChange}
+          value={props.editorValue}
+        ></textarea>
       </div>
       <div className="todo-editor-actions">
-        {props.mode === 'EDIT' && showRemoveBtn}
+        {props.mode === 'update' && showRemoveBtn()}
         <button
           className="action-btn"
           onClick={props.saveBtnClicked}

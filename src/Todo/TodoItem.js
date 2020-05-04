@@ -10,7 +10,7 @@ const TodoItem = (props) => {
         <input
           type="checkbox"
           defaultChecked={props.isCompleted}
-          onClick={props.onClick.bind(this, props.id)}
+          onClick={props.checkBoxOnClick.bind(this, props.id)}
         />
         <div className="state">
           <i className="icon far fa-check"></i>
@@ -18,6 +18,7 @@ const TodoItem = (props) => {
         </div>
       </div>
       <span
+        onClick={props.todoTitleOnClick.bind(this, props.id, props.content)}
         className={`todo-item-text ${
           props.isCompleted && 'todo-item-is-completed'
         } `}

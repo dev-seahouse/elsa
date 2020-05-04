@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 5000;
 const APP_ROOT = '/';
 
 app.use(cors());
-app.use(methodOverride('_method'));
 app.disable('x-powered-by');
 app.use(express.json());
 app.use(
@@ -18,6 +17,7 @@ app.use(
     extended: true,
   })
 );
+app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.get(APP_ROOT, (req, res) => {
   res.json('~elsa api~');

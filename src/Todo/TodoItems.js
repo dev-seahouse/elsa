@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './TodoItems.scss';
 import './TodoItem';
 import TodoItem from './TodoItem';
@@ -33,7 +33,6 @@ const TodoItems = (props) => {
     return newArr;
   };
 
-  console.log(props.filterTerm);
   const filteredData = filterData([...props.todoData], props.filterTerm);
   const sortedTodo = sortTodoData([...filteredData]);
 
@@ -45,7 +44,8 @@ const TodoItems = (props) => {
       userId={todo.app_juser_idj}
       isCompleted={todo.is_completed}
       dateUpdated={todo.date_updatedj}
-      onClick={props.onClick}
+      checkBoxOnClick={props.checkBoxOnClick}
+      todoTitleOnClick={props.todoTitleOnClick}
     />
   ));
 

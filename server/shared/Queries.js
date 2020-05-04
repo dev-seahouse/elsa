@@ -33,7 +33,7 @@ const prepareInsertStmt = (tableName, columns, values) => {
 // @returns update table (name1,name2) = ($1,S2) where column1 = $4
 const prepareUpdateStmt = (tableName, columns, values, where) => {
   const whereCols = Object.keys(where);
-  const whereVals = Object.keys(where);
+  const whereVals = Object.keys(where);// does not matter, use place holder
   const wherePlaceHolderStartIdx = columns.length;
   let stmt = `update ${quote(tableName)} \set (${parseParam(columns)})=`;
   stmt += `(${makePlaceHolders(values)}) where `;
@@ -48,7 +48,7 @@ const prepareSelectStmt = (tableName, selections, where) => {
   let stmt = `select ${parseParam(selections)} from ${quote(tableName)}`;
   if (where) {
     const whereCols = Object.keys(where);
-    const whereVals = Object.keys(where);
+    const whereVals = Object.keys(where); // does not matter, use palce holder
     stmt += ` where ${parseWhereClause(whereCols, whereVals)}`;
   }
   return stmt;
@@ -56,7 +56,7 @@ const prepareSelectStmt = (tableName, selections, where) => {
 
 const prepareDeleteStmt = (tableName, where) => {
   const whereCols = Object.keys(where);
-  const whereVals = Object.keys(where);
+  const whereVals = Object.keys(where); // does not matter, use place holder
   let stmt = `delete from ${quote(tableName)} `;
   stmt += `where ${parseWhereClause(whereCols, whereVals)} `;
   stmt += `returning id`;
