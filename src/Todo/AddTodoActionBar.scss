@@ -3,6 +3,9 @@
   margin-top: rem(17px);
   margin-bottom: rem(16px);
   position: relative;
+  @include screen(med-small) {
+    margin-top: rem(60px);
+  }
 }
 
 .action-bar:before {

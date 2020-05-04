@@ -1,5 +1,6 @@
 @import './includes.scss';
 // base rules
+
 body,
 html {
   font-size: 16px;
@@ -13,6 +14,28 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* The emerging W3C standard
+   that is currently Firefox-only */
+
+*,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: $accent $shade;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: $shade;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: $accent;
+  border-radius: 20px;
+  border: 3px solid $shade;
+}
+
 input {
   margin: 0;
   padding: 0;
@@ -22,6 +45,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 // buttons
 
 button,

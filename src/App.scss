@@ -16,21 +16,21 @@
 
 // theme rules
 .has-theme-shade-bg {
-  background-color: $shade;
+  background-color: var(--shade);
 }
 
 .has-theme-shade-fg {
-  color: $shade;
+  color: var(--shade);
 }
 
 .has-theme-accent-fg {
-  color: $accent;
+  color: var(--accent);
 }
 
 .has-theme-accent-bg {
-  background-color: $accent;
+  background-color: var(--accent);
 }
 
 .has-theme-shade-inv-fg {
-  color: $shade-inverse;
+  color: var(--shade_inverse);
 }

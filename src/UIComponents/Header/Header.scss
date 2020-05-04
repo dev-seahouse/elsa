@@ -1,8 +1,11 @@
 @import '../../_includes.scss';
 
-
 .header {
   display: flex;
   justify-content: space-between;
   min-width: 300px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }
