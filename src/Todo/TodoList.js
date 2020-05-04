@@ -143,7 +143,7 @@ const TodoList = (props) => {
         },
       })
       .then((res) => {
-        if (res.data === UPDATED_SUCESS_CODE) {
+        if (res.data && res.data.rowCount === UPDATED_SUCESS_CODE) {
           setTodoData((prevData) => {
             const editedTodoIndex = prevData.findIndex(
               (todo) => todo.id === todoId
