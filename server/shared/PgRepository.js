@@ -45,7 +45,8 @@ class PgRepository {
     );
     values.push(...Object.values(whereParams));
     console.log(statement);
-    //return db.execute(statement, values);
+    console.log(columns, values);
+    return db.execute(statement, values);
   }
 
   static async insert(tableName, data) {

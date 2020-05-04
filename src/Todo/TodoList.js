@@ -78,11 +78,8 @@ const TodoList = (props) => {
             },
           }
         )
-        .then((res) => {
-          console.log(res);
-          return newData;
-        });
-      return prevData;
+        .catch(console.error);
+      return newData;
     });
   };
 

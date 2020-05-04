@@ -20,6 +20,8 @@ const parseWhereClause = (fields, vals, startIdx = 0) => {
   return res;
 };
 
+const addBrackets = (string, length) => (length > 1 ? `${string}` : string);
+
 // @param columns {Array} [id, name]
 // @param values {Array} ['dfd','dfd','dfd']
 const prepareInsertStmt = (tableName, columns, values) => {
@@ -33,10 +35,13 @@ const prepareInsertStmt = (tableName, columns, values) => {
 // @returns update table (name1,name2) = ($1,S2) where column1 = $4
 const prepareUpdateStmt = (tableName, columns, values, where) => {
   const whereCols = Object.keys(where);
-  const whereVals = Object.keys(where);// does not matter, use place holder
+  const whereVals = Object.keys(where); // does not matter, use place holder
   const wherePlaceHolderStartIdx = columns.length;
-  let stmt = `update ${quote(tableName)} \set (${parseParam(columns)})=`;
-  stmt += `(${makePlaceHolders(values)}) where `;
+  let stmt = `update ${quote(tableName)} \set ${addBrackets(
+    parseParam(columns),
+    columns.length
+  )}=`;
+  stmt += `(${addBrackets(makePlaceHolders(values), columns.length)}) where `;
   stmt += `${parseWhereClause(whereCols, whereVals, wherePlaceHolderStartIdx)}`;
   return stmt;
 };
