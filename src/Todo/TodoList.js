@@ -30,6 +30,12 @@ const editorReducer = (currState, action) => {
         editedItemId: action.todoId,
         value: action.value,
       };
+    case 'CREATED':
+      return {
+        ...currState,
+        value: '',
+      };
+
     default:
       return currState;
   }
@@ -123,19 +129,16 @@ const TodoList = (props) => {
           const newData = [...prevState, newTodo];
           return newData;
         });
+        dispatch({
+          type: 'CREATED',
+        });
       })
       .catch(console.error);
   };
 
-  const updateRecordAndUI = (content, todoId) => {
+  const updateRecordAndUI = (updatedTodo, todoId) => {
     const UPDATED_SUCESS_CODE = 1;
-    const updatedTodo = {
-      content: content,
-      is_completed: false,
-      date_updated: new Date(),
-      app_user_id: 1,
-      is_deleted: false,
-    };
+
     axios
       .post('http://localhost:5000/todos/' + todoId, updatedTodo, {
         headers: {
@@ -158,7 +161,34 @@ const TodoList = (props) => {
       .catch(console.error);
   };
 
-  const handleSaveBtnClicked = (e) => {
+  const removeBtnClickedHandler = (e) => {
+    const UPDATED_SUCESS_CODE = 1;
+    const editingItemId = editorState.editedItemId;
+    axios
+      .post(
+        'http://localhost:5000/todos/' + editingItemId,
+        { is_deleted: true },
+        {
+          headers: {
+            'X-HTTP-Method-Override': 'PUT',
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data && res.data.rowCount === UPDATED_SUCESS_CODE) {
+          setTodoData((prevData) => {
+            const newData = [...prevData];
+            const filteredData = newData.filter(
+              (item) => item.id !== editingItemId
+            );
+            return filteredData;
+          });
+        }
+      })
+      .catch(console.error);
+  };
+
+  const saveBtnClickedHandler = (e) => {
     e.preventDefault();
     if (editorState.saveShouldBeDisabled) {
       console.warn('this should never appear.');
@@ -166,19 +196,31 @@ const TodoList = (props) => {
     const content = editorState.value;
     if (editorState.mode === 'create') createRecordAndUpdateUI(content);
     if (editorState.mode === 'update') {
-      updateRecordAndUI(content, editorState.editedItemId);
+      const updatedTodo = {
+        content: content,
+        is_completed: false,
+        date_updated: new Date(),
+        app_user_id: 1,
+        is_deleted: false,
+      };
+      updateRecordAndUI(updatedTodo, editorState.editedItemId);
     }
   };
 
-  const handleSearchChanged = (e) => {
+  const searchChangedHandler = (e) => {
     const searchTerm = e.target.value;
     setFilterTerm(() => searchTerm || '');
   };
 
+  const filterChangedHandler = (e) => {
+    setFilterTerm(':' + e.target.value.toLowerCase());
+    console.log(filterTerm);
+  };
+
   return (
     <div className="todo-list">
-      <SearchBar onChange={handleSearchChanged} />
-      <TodoFilter />
+      <SearchBar onChange={searchChangedHandler} />
+      <TodoFilter onChange={filterChangedHandler} />
       <TodoItems
         todoData={todoData}
         checkBoxOnClick={todoChkBoxClickedHandler}
@@ -191,7 +233,8 @@ const TodoList = (props) => {
         <TodoEditor
           mode={editorState.mode}
           onChange={editorChangedHandler}
-          saveBtnClicked={handleSaveBtnClicked}
+          saveBtnClicked={saveBtnClickedHandler}
+          removeBtnClicked={removeBtnClickedHandler}
           saveShouldBeDisabled={editorState.saveShouldBeDisabled}
           editorValue={editorState.value || ''}
         />

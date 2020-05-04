@@ -7,6 +7,7 @@ const getTodoReq = (req) => {
     date_added,
     date_updated,
     app_user_id,
+    is_deleted,
   } = req.body;
   let returnedObj = {
     content,
@@ -14,13 +15,14 @@ const getTodoReq = (req) => {
     date_added,
     date_updated,
     app_user_id,
+    is_deleted,
   };
 
   return returnedObj;
 };
 
 const getTodos = async (req, res) => {
-  const statement = 'select * from todo';
+  const statement = 'select * from todo where is_deleted is not true';
   const data = await TodoRepo.execute(statement);
   return res.json(data.rows);
 };

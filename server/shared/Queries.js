@@ -37,12 +37,11 @@ const prepareUpdateStmt = (tableName, columns, values, where) => {
   const whereCols = Object.keys(where);
   const whereVals = Object.keys(where); // does not matter, use place holder
   const wherePlaceHolderStartIdx = columns.length;
-  console.log(columns.length);
   let stmt = `update ${quote(tableName)} \set ${addBrackets(
     parseParam(columns),
     columns.length
   )}=`;
-  stmt += `(${addBrackets(makePlaceHolders(values), columns.length)}) where `;
+  stmt += `${addBrackets(makePlaceHolders(values), values.length)} where `;
   stmt += `${parseWhereClause(whereCols, whereVals, wherePlaceHolderStartIdx)}`;
   return stmt;
 };

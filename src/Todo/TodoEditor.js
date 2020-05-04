@@ -5,7 +5,7 @@ const TodoEditor = (props) => {
   console.log(props.saveShouldBeDisabled);
   const showRemoveBtn = () => {
     return (
-      <button className="action-btn">
+      <button className="action-btn" onClick={props.removeBtnClicked}>
         <i className="fas fa-times-circle"></i>remove
       </button>
     );

@@ -10,7 +10,10 @@ const TodoItems = (props) => {
   }
 
   const filterData = (data, searchTerm) => {
-    if (!searchTerm || searchTerm.length < 3) return data;
+    if (searchTerm === ':all' || !searchTerm || searchTerm.length < 3)
+      return data;
+    if (searchTerm === ':completed')
+      return data.filter((item) => item.is_completed);
     const options = {
       includeScore: false,
       keys: ['content'],
