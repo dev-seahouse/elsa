@@ -32,10 +32,16 @@
   width: 98%;
   display: flex;
   justify-content: flex-end;
+  @include screen(med-small) {
+    width: 100%;
+  }
   .action-btn {
     padding: 2px 8px 2px;
     i {
       margin-right: 5px;
+    }
+    @include screen(med-small) {
+      padding: 4px 16px 4px;
     }
   }
   .action-btn:not(:last-child) {

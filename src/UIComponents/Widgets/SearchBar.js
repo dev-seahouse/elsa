@@ -5,7 +5,12 @@ const SearchBar = (props) => {
   return (
     <div className="search-bar">
       <div className="input-group">
-        <input type="text" required className="has-full-width" />
+        <input
+          type="text"
+          required
+          className="has-full-width"
+          onChange={props.onChange}
+        />
         <span className="input-text-highlight"></span>
         <span className="input-text-bar"></span>
         <label className="input-text-label">Search</label>

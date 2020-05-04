@@ -20,4 +20,8 @@
   border-radius: 50%;
   font-size: 1.3rem;
   font-weight: 900;
+  @include screen(med-small) {
+    left: 92%;
+    font-size: 1.5rem;
+  }
 }

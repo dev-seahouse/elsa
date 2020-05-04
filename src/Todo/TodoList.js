@@ -27,6 +27,7 @@ const editorReducer = (currState, action) => {
 
 const TodoList = (props) => {
   const [todoData, setTodoData] = useState([]);
+  const [filterTerm, setFilterTerm] = useState('');
   const [editorState, dispatch] = useReducer(editorReducer, {
     type: '',
     show: false,
@@ -46,6 +47,7 @@ const TodoList = (props) => {
       return newData;
     });
   };
+
   useEffect(() => {
     console.info('setTodo effect fired');
     // set data
@@ -71,7 +73,7 @@ const TodoList = (props) => {
     });
   };
 
-  const handleSave = (content) => {
+  const updateDBAndUI = (content) => {
     const newTodo = {
       content: content,
       is_completed: false,
@@ -88,7 +90,6 @@ const TodoList = (props) => {
         return newData;
       });
     });
-    // make http request and get the returned inserted id
   };
 
   const handleSaveBtnClicked = (e) => {
@@ -96,19 +97,24 @@ const TodoList = (props) => {
     if (editorState.saveShouldBeDisabled) {
       console.warn('this should never appear.');
     }
-
     const content = editorState.value;
-    handleSave(content);
+    updateDBAndUI(content);
+  };
+
+  const handleSearchChanged = (e) => {
+    const searchTerm = e.target.value;
+    setFilterTerm(() => searchTerm || '');
   };
 
   return (
     <div className="todo-list">
-      <SearchBar />
+      <SearchBar onChange={handleSearchChanged} />
       <TodoFilter />
       <TodoItems
         todoData={todoData}
         onClick={todoChkBoxClickedHandler}
         sortBy={{ completed: 'asc' }}
+        filterTerm={filterTerm}
       />
       <AddTodoActionBar onClick={addTodoBtnClickedHandler} />
       {editorState.show && (

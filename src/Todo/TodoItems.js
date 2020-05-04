@@ -2,11 +2,24 @@ import React from 'react';
 import './TodoItems.scss';
 import './TodoItem';
 import TodoItem from './TodoItem';
+import Fuse from 'fuse.js';
 
 const TodoItems = (props) => {
   if (!props.todoData || !props.todoData.length) {
     return <div className="has-text-center">~Inbox Zero State~</div>;
   }
+
+  const filterData = (data, searchTerm) => {
+    if (!searchTerm || searchTerm.length < 3) return data;
+    const options = {
+      includeScore: false,
+      keys: ['content'],
+      // findAllMatches: true,
+    };
+    const fuse = new Fuse(data, options);
+    const result = fuse.search(searchTerm);
+    return result.map((obj) => obj.item);
+  };
 
   const sortTodoData = (sortedArr) => {
     const newArr = sortedArr.sort((a, b) => {
@@ -20,8 +33,9 @@ const TodoItems = (props) => {
     return newArr;
   };
 
-  const sortedTodo = sortTodoData([...props.todoData]);
-  console.log(sortedTodo);
+  console.log(props.filterTerm);
+  const filteredData = filterData([...props.todoData], props.filterTerm);
+  const sortedTodo = sortTodoData([...filteredData]);
 
   const todoItems = sortedTodo.map((todo) => (
     <TodoItem
