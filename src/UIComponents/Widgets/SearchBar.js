@@ -11,11 +11,11 @@ const SearchBar = (props) => {
           className="has-full-width"
           onChange={props.onChange}
         />
-        <span className="input-text-highlight"></span>
-        <span className="input-text-bar"></span>
+        <span className="input-text-highlight"/>
+        <span className="input-text-bar"/>
         <label className="input-text-label">Search</label>
         <span className="input-text-icon search-bar-search-icon">
-          <i className="fas fa-search"></i>
+          <i className="fas fa-search"/>
         </span>
       </div>
     </div>

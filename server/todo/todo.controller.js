@@ -9,7 +9,7 @@ const getTodoReq = (req) => {
     app_user_id,
     is_deleted,
   } = req.body;
-  let returnedObj = {
+  return {
     content,
     is_completed,
     date_added,
@@ -17,8 +17,6 @@ const getTodoReq = (req) => {
     app_user_id,
     is_deleted,
   };
-
-  return returnedObj;
 };
 
 const getTodos = async (req, res) => {

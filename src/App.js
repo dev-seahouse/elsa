@@ -22,7 +22,7 @@ const App = () => {
         <main>
           <Switch>
             <Route path="/" exact>
-              <TodoList></TodoList>
+              <TodoList/>
             </Route>
             <Redirect to="/" />
           </Switch>

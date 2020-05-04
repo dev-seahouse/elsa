@@ -44,9 +44,9 @@ const TodoItems = (props) => {
       key={todo.id}
       id={todo.id}
       content={todo.content}
-      userId={todo.app_juser_idj}
+      userId={todo.app_user_id}
       isCompleted={todo.is_completed}
-      dateUpdated={todo.date_updatedj}
+      dateUpdated={todo.date_updated}
       checkBoxOnClick={props.checkBoxOnClick}
       todoTitleOnClick={props.todoTitleOnClick}
     />

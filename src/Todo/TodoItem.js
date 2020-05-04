@@ -13,7 +13,7 @@ const TodoItem = (props) => {
           onClick={props.checkBoxOnClick.bind(this, props.id)}
         />
         <div className="state">
-          <i className="icon far fa-check"></i>
+          <i className="icon far fa-check"/>
           <label />
         </div>
       </div>

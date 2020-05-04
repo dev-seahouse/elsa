@@ -44,13 +44,10 @@ class PgRepository {
       whereParams
     );
     values.push(...Object.values(whereParams));
-    console.log(statement);
-    console.log(columns, values);
     return db.execute(statement, values);
   }
 
   static async insert(tableName, data) {
-    // assume that pk is 'id' for simplicity
     const columns = Object.keys(data);
     const values = Object.values(data);
     let statement = prepareInsertStmt(tableName, columns, values);

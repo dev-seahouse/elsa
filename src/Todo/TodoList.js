@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import './TodoList';
 import SearchBar from '../UIComponents/Widgets/SearchBar';
 import TodoFilter from './TodoFilter';
@@ -35,6 +35,12 @@ const editorReducer = (currState, action) => {
         ...currState,
         value: '',
       };
+    case 'DELETED':
+      return {
+        ...currState,
+        value: '',
+        show: false
+      }
 
     default:
       return currState;
@@ -69,9 +75,8 @@ const TodoList = (props) => {
 
   const todoChkBoxClickedHandler = (todoId) => {
     setTodoData((prevData) => {
-      const clickedTodoIndex = prevData.findIndex((todo) => todo.id === todoId);
-      const newData = [...prevData];
-      const newTodoObj = { ...newData[clickedTodoIndex] };
+      const clickedTodoIndex = prevData.findIndex((todo) => todo.id === todoId), newData = [...prevData],
+          newTodoObj = {...newData[clickedTodoIndex]};
       newTodoObj.is_completed = toggleIsCompleted(newTodoObj);
       newData[clickedTodoIndex] = newTodoObj;
       axios
@@ -125,10 +130,7 @@ const TodoList = (props) => {
       .post('http://localhost:5000/todos', newTodo)
       .then((res) => {
         newTodo.id = res.data.id;
-        setTodoData((prevState) => {
-          const newData = [...prevState, newTodo];
-          return newData;
-        });
+        setTodoData((prevState) => [...prevState, newTodo]);
         dispatch({
           type: 'CREATED',
         });
@@ -149,11 +151,9 @@ const TodoList = (props) => {
         if (res.data && res.data.rowCount === UPDATED_SUCESS_CODE) {
           setTodoData((prevData) => {
             const editedTodoIndex = prevData.findIndex(
-              (todo) => todo.id === todoId
-            );
-            const newData = [...prevData];
-            const newTodoObj = { ...newData[editedTodoIndex], ...updatedTodo };
-            newData[editedTodoIndex] = newTodoObj;
+                (todo) => todo.id === todoId
+            ), newData = [...prevData];
+            newData[editedTodoIndex] = {...newData[editedTodoIndex], ...updatedTodo};
             return newData;
           });
         }
@@ -161,31 +161,37 @@ const TodoList = (props) => {
       .catch(console.error);
   };
 
-  const removeBtnClickedHandler = (e) => {
-    const UPDATED_SUCESS_CODE = 1;
-    const editingItemId = editorState.editedItemId;
+  const removeRecordAndUpdateUI = (editingItemId, UPDATED_SUCCESS_CODE) => {
     axios
-      .post(
-        'http://localhost:5000/todos/' + editingItemId,
-        { is_deleted: true },
-        {
-          headers: {
-            'X-HTTP-Method-Override': 'PUT',
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data && res.data.rowCount === UPDATED_SUCESS_CODE) {
-          setTodoData((prevData) => {
-            const newData = [...prevData];
-            const filteredData = newData.filter(
-              (item) => item.id !== editingItemId
-            );
-            return filteredData;
-          });
-        }
-      })
-      .catch(console.error);
+        .post(
+            'http://localhost:5000/todos/' + editingItemId,
+            {is_deleted: true},
+            {
+              headers: {
+                'X-HTTP-Method-Override': 'PUT',
+              },
+            }
+        )
+        .then((res) => {
+          if (res.data && res.data.rowCount === UPDATED_SUCCESS_CODE) {
+            dispatch({
+              type: 'DELETED'
+            })
+            setTodoData(prevData => {
+              const newData = [...prevData];
+              return newData.filter(
+                  (item) => item.id !== editingItemId
+              );
+            });
+          }
+        })
+        .catch(console.error);
+  };
+
+  const removeBtnClickedHandler = (e) => {
+    const UPDATED_SUCCESS_CODE = 1;
+    const editingItemId = editorState.editedItemId;
+    removeRecordAndUpdateUI(editingItemId, UPDATED_SUCCESS_CODE);
   };
 
   const saveBtnClickedHandler = (e) => {
@@ -214,7 +220,6 @@ const TodoList = (props) => {
 
   const filterChangedHandler = (e) => {
     setFilterTerm(':' + e.target.value.toLowerCase());
-    console.log(filterTerm);
   };
 
   return (
