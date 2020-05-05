@@ -7,7 +7,9 @@ class PgConnection {
   constructor(config) {
     this.config = config;
     this.pool = new Pool({
-      ssl: { rejectUnauthorized: false },
+      ssl: {
+        rejectUnauthorized: false,
+      },
     });
   }
 
