@@ -22,11 +22,11 @@
   },
   "scripts": {
     "start": " node server/server.js",
-    "heroku-postbuild": "yarn && yarn build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "heroku-run-build-script": true,
   "eslintConfig": {
     "extends": "react-app"
   },
