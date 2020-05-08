@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './TodoList';
 import SearchBar from '../UIComponents/Widgets/SearchBar';
 import TodoFilter from './TodoFilter';
@@ -6,6 +6,8 @@ import TodoItems from './TodoItems';
 import AddTodoActionBar from './AddTodoActionBar';
 import TodoEditor from './TodoEditor';
 import axios from 'axios';
+
+const HOST = process.env.HOST;
 
 const editorReducer = (currState, action) => {
   switch (action.type) {
@@ -39,8 +41,8 @@ const editorReducer = (currState, action) => {
       return {
         ...currState,
         value: '',
-        show: false
-      }
+        show: false,
+      };
 
     default:
       return currState;
@@ -55,7 +57,7 @@ const TodoList = (props) => {
     console.info('setTodo effect fired');
     // set data
     axios
-      .get('http://localhost:5000/todos')
+      .get(HOST + '/todos')
       .then((res) => {
         setTodoData(res.data);
       })
@@ -75,13 +77,14 @@ const TodoList = (props) => {
 
   const todoChkBoxClickedHandler = (todoId) => {
     setTodoData((prevData) => {
-      const clickedTodoIndex = prevData.findIndex((todo) => todo.id === todoId), newData = [...prevData],
-          newTodoObj = {...newData[clickedTodoIndex]};
+      const clickedTodoIndex = prevData.findIndex((todo) => todo.id === todoId),
+        newData = [...prevData],
+        newTodoObj = { ...newData[clickedTodoIndex] };
       newTodoObj.is_completed = toggleIsCompleted(newTodoObj);
       newData[clickedTodoIndex] = newTodoObj;
       axios
         .post(
-          'http://localhost:5000/todos/' + todoId,
+          HOST + '/todos/' + todoId,
           { is_completed: newTodoObj.is_completed },
           {
             headers: {
@@ -127,7 +130,7 @@ const TodoList = (props) => {
     };
 
     axios
-      .post('http://localhost:5000/todos', newTodo)
+      .post(HOST + '/todos', newTodo)
       .then((res) => {
         newTodo.id = res.data.id;
         setTodoData((prevState) => [...prevState, newTodo]);
@@ -142,7 +145,7 @@ const TodoList = (props) => {
     const UPDATED_SUCESS_CODE = 1;
 
     axios
-      .post('http://localhost:5000/todos/' + todoId, updatedTodo, {
+      .post(HOST + '/todos/' + todoId, updatedTodo, {
         headers: {
           'X-HTTP-Method-Override': 'PUT',
         },
@@ -152,8 +155,12 @@ const TodoList = (props) => {
           setTodoData((prevData) => {
             const editedTodoIndex = prevData.findIndex(
                 (todo) => todo.id === todoId
-            ), newData = [...prevData];
-            newData[editedTodoIndex] = {...newData[editedTodoIndex], ...updatedTodo};
+              ),
+              newData = [...prevData];
+            newData[editedTodoIndex] = {
+              ...newData[editedTodoIndex],
+              ...updatedTodo,
+            };
             return newData;
           });
         }
@@ -163,29 +170,27 @@ const TodoList = (props) => {
 
   const removeRecordAndUpdateUI = (editingItemId, UPDATED_SUCCESS_CODE) => {
     axios
-        .post(
-            'http://localhost:5000/todos/' + editingItemId,
-            {is_deleted: true},
-            {
-              headers: {
-                'X-HTTP-Method-Override': 'PUT',
-              },
-            }
-        )
-        .then((res) => {
-          if (res.data && res.data.rowCount === UPDATED_SUCCESS_CODE) {
-            dispatch({
-              type: 'DELETED'
-            })
-            setTodoData(prevData => {
-              const newData = [...prevData];
-              return newData.filter(
-                  (item) => item.id !== editingItemId
-              );
-            });
-          }
-        })
-        .catch(console.error);
+      .post(
+        HOST + '/todos/' + editingItemId,
+        { is_deleted: true },
+        {
+          headers: {
+            'X-HTTP-Method-Override': 'PUT',
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data && res.data.rowCount === UPDATED_SUCCESS_CODE) {
+          dispatch({
+            type: 'DELETED',
+          });
+          setTodoData((prevData) => {
+            const newData = [...prevData];
+            return newData.filter((item) => item.id !== editingItemId);
+          });
+        }
+      })
+      .catch(console.error);
   };
 
   const removeBtnClickedHandler = (e) => {
