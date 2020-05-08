@@ -7,7 +7,8 @@ import AddTodoActionBar from './AddTodoActionBar';
 import TodoEditor from './TodoEditor';
 import axios from 'axios';
 
-const HOST = process.env.HOST;
+// todo: move this to config.js
+const HOST = 'https://elsado.herokuapp.com';
 
 const editorReducer = (currState, action) => {
   switch (action.type) {
