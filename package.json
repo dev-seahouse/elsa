@@ -21,7 +21,7 @@
     "react-switch-theme": "^0.3.0"
   },
   "scripts": {
-    "start": " server/server.js",
+    "start": " node server/server.js",
     "heroku-postbuild": "yarn && yarn build",
     "build": "react-scripts build",
     "test": "react-scripts test",
